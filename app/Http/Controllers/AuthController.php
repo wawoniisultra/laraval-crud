@@ -7,11 +7,11 @@ use Illuminate\Http\Request;
 class AuthController extends Controller
 {
     public function register(){
-        return view ('register');
+        return view ('tugas1.register');
     }
 
     public function welcome(Request $request){
-        return view ('welcome');
+        return view ('tugas1.welcome');
     }
 
     public function welcome_post(Request $request) {
