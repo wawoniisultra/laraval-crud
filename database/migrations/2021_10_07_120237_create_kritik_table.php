@@ -21,7 +21,6 @@ class CreateKritikTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('film_id');
             $table->foreign('film_id')->references('id')->on('film');
-            $table->timestamps();
         });
     }
 
@@ -32,6 +31,14 @@ class CreateKritikTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kritik');
+        Schema::table('kritik', function (Blueprint $table) {
+            $table->dropForeign(['film_id']);
+            $table->dropColumn(['film_id']);
+            $table->dropForeign(['user_id']);
+            $table->dropColumn(['user_id']);
+            $table->dropColumn(['point']);
+            $table->dropColumn(['isi']);
+            $table->dropColumn(['id']);
+        });
     }
 }

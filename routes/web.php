@@ -16,11 +16,16 @@
 // });
 
 Route::get('/', 'HomeController@home');
-
 Route::get('/register', 'AuthController@register');
-
 Route::post('/welcome', 'AuthController@welcome_post');
-
 Route::get('/table', 'TableController@table');
-
 Route::get('/data-tables', 'TableController@datatables');
+
+//CRUD Cast
+Route::get('/cast','CastController@index');
+Route::get('/cast/create', 'CastController@create');
+Route::post('/cast', 'CastController@store');
+Route::get('/cast/{cast_id}', 'CastController@show');
+Route::get('/cast/{cast_id}/edit', 'CastController@edit');
+Route::put('/cast/{cast_id}', 'CastController@update');
+Route::delete('/cast/{cast_id}', 'CastController@destroy');

@@ -13,13 +13,12 @@ class CreateProfileTable extends Migration
      */
     public function up()
     {
-        Schema::create('profile', function (Blueprint $table) {
+        Schema::table('profile', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('umur');
             $table->text('bio');
             $table->text('alamat');
             $table->unsignedBigInteger('user_id');
-
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
@@ -31,6 +30,13 @@ class CreateProfileTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('profile');
+        Schema::table('profile', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
+            $table->dropColumn(['user_id']);
+            $table->dropColumn(['alamat']);
+            $table->dropColumn(['bio']);
+            $table->dropColumn(['umur']);
+            $table->dropColumn(['id']);
+        });
     }
 }

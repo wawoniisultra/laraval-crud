@@ -20,7 +20,6 @@ class CreatePeranTable extends Migration
             $table->foreign('film_id')->references('id')->on('film');
             $table->unsignedBigInteger('cast_id');
             $table->foreign('cast_id')->references('id')->on('cast');
-            $table->timestamps();
         });
     }
 
@@ -31,6 +30,13 @@ class CreatePeranTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('peran');
+        Schema::table('peran', function (Blueprint $table) {
+            $table->dropForeign(['cast_id']);
+            $table->dropColumn(['cast_id']);
+            $table->dropForeign(['film_id']);
+            $table->dropColumn(['film_id']);
+            $table->dropColumn(['nama']);
+            $table->dropColumn(['id']);
+        });
     }
 }

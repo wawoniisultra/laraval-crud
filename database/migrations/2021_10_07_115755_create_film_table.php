@@ -20,7 +20,6 @@ class CreateFilmTable extends Migration
             $table ->integer('tahun');
             $table ->string('poster');
             $table->unsignedBigInteger('genre_id');
-
             $table->foreign('genre_id')->references('id')->on('genre');
             
         });
@@ -33,6 +32,14 @@ class CreateFilmTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('film');
+        Schema::table('film', function (Blueprint $table) {
+            $table->dropForeign(['genre_id']);
+            $table->dropColumn(['genre_id']);
+            $table->dropColumn(['poster']);
+            $table->dropColumn(['tahun']);
+            $table->dropColumn(['ringkasan']);
+            $table->dropColumn(['judul']);
+            $table->dropColumn(['id']);
+        });
     }
 }
